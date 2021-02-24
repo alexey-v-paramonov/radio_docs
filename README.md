@@ -1,13 +1,16 @@
 **Admin application**
+
 This is a Django/Python application located in 
 `/opt/sc_radio`
 
 
 **Broadcaster applications**
+
 This is a Django/Python application located in 
 `/var/users/<USERNAME>/app`
 
 *Debugging:*
+
 see if application can start with
 `cd /var/users/<USERNAME>/app`
 or
@@ -22,12 +25,14 @@ Software depends on the following system-level services, so make sure all of the
 
 
 **uWsgi**
+
 uWsgi (https://uwsgi-docs.readthedocs.io/en/latest/) is a container app that runs Broadcaster and Admin Django applications.
 Configuration files are available in 
 `/etc/supervisor/conf.d/<USERNAME>.conf` - for broadcaster applications
 `/etc/supervisor/conf.d/sc_radio.conf` - for admin application
 
 **Supervisord**
+
 This service is a daemon that makes sure all admin and broadcaster uWsgi applications are running and restarts the automatically if they crash.
 
 Debugging:
