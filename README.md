@@ -42,7 +42,8 @@ Configuration files are available in
 
 This service is a daemon that makes sure all admin and broadcaster uWsgi applications are running and restarts the automatically if they crash.
 
-Debugging:
+*Debugging:*
+
 If some broadcaster is not working try to open its config file in 
 
 `/etc/supervisor/conf.d/<USERNAME>.conf`
@@ -76,6 +77,8 @@ This service is running every 10 minutes according to this CRON rule:
 this line is configured in `/etc/crontab`.
 
 *Debugging:*
+
+
 A log of this service for every user is located in 
 
 `/var/users/<USERNAME>/log/indexer.log`
@@ -100,7 +103,8 @@ Configuration files are located in
 
 `/etc/nginx/conf.d/sc_radio.conf` - for admin app
 
-Debugging:
+*Debugging:*
+
 By default all Nginx logs are disabled to save disk space. Enable by changing
 ```
 access_log  /dev/null ;
@@ -128,6 +132,7 @@ When MySQL root password changes it should be also updated in:
 `/opt/bin/utils.ini` under "[MySQL]" section.
 
 *Debugging:*
+
 Most common problem with MySQL is a crash or unable to start, see system logs for details.
 Depending on what MySQL version (MariaDB or original MySQL) is installed use corresponding command to restart it:
 
@@ -152,7 +157,8 @@ Configuration is available in
 
 `/var/users/<USERNAME>/conf/radiopoint_<SERVER_ID>.conf`
 
-Debugging
+*Debugging:*
+
 Change 
 
 `LOG=0`
@@ -190,6 +196,7 @@ Additional system utilities are run y CRON, configuration from /etc/crontab usua
 (5) - AWSTATS module that generates advances listener reports based on Icecast/Shoutcast access log files.
 (6) - Optional, in case SSL certificate is configured.
 
-Debugging:
+*Debugging:*
+
 1. Change 1>/dev/null 2>/dev/null to real stdout/stderr log files to see what utils are doing and for possible issues.
 2. Try to run utility by hand via console, for example python3.6 /opt/bin/sc_accounts to see the output for potential issues.
