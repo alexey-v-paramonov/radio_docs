@@ -51,6 +51,7 @@ After that log will have a detailed description in case Django application for t
 
 
 **Music Indexing service**
+
 Used to look for mp3/flac files that users upload via web interface or FTP. It syncronizes files on the file system with the database information, calculates file length, extracts images and so on.
 It is using 2 extenral programs:
 
@@ -73,6 +74,7 @@ Indexing service is using configuration file `/opt/bin/indexer.cfg` and it is us
 
 
 **Nginx**
+
 Nginx is used to server Django applications for broadcaster and admin interfaces.
 Configuration files are located in 
 `/etc/nginx/conf.d/<USERNAME>.conf` - for broadcaster app
@@ -95,6 +97,7 @@ Also see system logs.
 
 
 **MySQL**
+
 MySQL is used to store all the data for broadcaster/admin accounts. Default system-level configuration is uses with default settings.
 When MySQL root password changes it should be also updated in:
 `/opt/bin/indexer.cfg`
@@ -108,12 +111,14 @@ or
 `service mariadb restart`
 
 **ProFTP**
+
 This is a default FTP server running on port 21. It has a default configuration with MySQL extension enabled for broadcaster accounts.
 Configuration is located in /etc/proftpd.conf (CentoS)
 Restart with 
 `service proftpd restart`
 
 **RadioPoint**
+
 This is a core process that runs user radio stream.
 Configuration is available in 
 `/var/users/<USERNAME>/conf/radiopoint_<SERVER_ID>.conf`
@@ -130,6 +135,7 @@ It restarts automatically every minute.
 
 
 **Utilities**
+
 Additional system utilities are run y CRON, configuration from /etc/crontab usually looks like this:
 
 ```
