@@ -13,10 +13,15 @@ This is a Django/Python application located in
 
 see if application can start with
 `cd /var/users/<USERNAME>/app`
+
 or
+
 `/opt/sc_radio`
+
 for admin app and
+
 `./manage.py shell`
+
 if this command does not crash and ends up showing the console - application is fine, otherwise a traceback with an error description is displayed.
 Common issues are related to broken Python dependencies or broken packages or database connection issues.
 
@@ -28,7 +33,9 @@ Software depends on the following system-level services, so make sure all of the
 
 uWsgi (https://uwsgi-docs.readthedocs.io/en/latest/) is a container app that runs Broadcaster and Admin Django applications.
 Configuration files are available in 
+
 `/etc/supervisor/conf.d/<USERNAME>.conf` - for broadcaster applications
+
 `/etc/supervisor/conf.d/sc_radio.conf` - for admin application
 
 **Supervisord**
@@ -37,14 +44,19 @@ This service is a daemon that makes sure all admin and broadcaster uWsgi applica
 
 Debugging:
 If some broadcaster is not working try to open its config file in 
+
 `/etc/supervisor/conf.d/<USERNAME>.conf`
+
 and change
 
 `stdout_logfile=/dev/null`
+
 to
+
 `stdout_logfile=/path/to/file.log`
 
 Restart supervisord with
+
 `service supervisord restart`
 
 After that log will have a detailed description in case Django application for that account is broken and not running.
@@ -62,12 +74,18 @@ This service is running every 10 minutes according to this CRON rule:
 `*/5 * * * * root /usr/local/bin/content_indexer 1>/dev/null 2>/dev/null`
 
 this line is configured in `/etc/crontab`.
-Debugging:
+
+*Debugging:*
 A log of this service for every user is located in 
+
 `/var/users/<USERNAME>/log/indexer.log`
+
 Also it is possible to save STDERR/STDOUT of this process by changing CRON rule from 
+
 `*/5 * * * * root /usr/local/bin/content_indexer 1>/dev/null 2>/dev/null`
+
 to
+
 `*/5 * * * * root /usr/local/bin/content_indexer 1>>/path/to/output.log 2>>/path/to/error.log`
 
 Indexing service is using configuration file `/opt/bin/indexer.cfg` and it is using MySQL root password to operate, so if MySQL root password changes - it should be changed in this config file as well.
@@ -77,7 +95,9 @@ Indexing service is using configuration file `/opt/bin/indexer.cfg` and it is us
 
 Nginx is used to server Django applications for broadcaster and admin interfaces.
 Configuration files are located in 
+
 `/etc/nginx/conf.d/<USERNAME>.conf` - for broadcaster app
+
 `/etc/nginx/conf.d/sc_radio.conf` - for admin app
 
 Debugging:
@@ -92,7 +112,9 @@ access_log  /path/to/access.log;
 error_log   /path/to/error.log;
 ```
 And restarting Nginx with
+
 `service nginx restart`
+
 Also see system logs.
 
 
@@ -100,14 +122,19 @@ Also see system logs.
 
 MySQL is used to store all the data for broadcaster/admin accounts. Default system-level configuration is uses with default settings.
 When MySQL root password changes it should be also updated in:
+
 `/opt/bin/indexer.cfg`
+
 `/opt/bin/utils.ini` under "[MySQL]" section.
 
-Debugging:
+*Debugging:*
 Most common problem with MySQL is a crash or unable to start, see system logs for details.
 Depending on what MySQL version (MariaDB or original MySQL) is installed use corresponding command to restart it:
+
 `service mysql restart`
+
 or
+
 `service mariadb restart`
 
 **ProFTP**
@@ -115,20 +142,29 @@ or
 This is a default FTP server running on port 21. It has a default configuration with MySQL extension enabled for broadcaster accounts.
 Configuration is located in /etc/proftpd.conf (CentoS)
 Restart with 
+
 `service proftpd restart`
 
 **RadioPoint**
 
 This is a core process that runs user radio stream.
 Configuration is available in 
+
 `/var/users/<USERNAME>/conf/radiopoint_<SERVER_ID>.conf`
 
 Debugging
 Change 
+
 `LOG=0`
-to `LOG=3`
+
+to 
+
+`LOG=3`
+
 in config file, so log file from
+
 `LOGPATH`
+
 setting will have a detailed report how radio station is operating.
 Process can be started from the broadcaster web interface, or killed using SSH using standard kill command.
 It restarts automatically every minute.
